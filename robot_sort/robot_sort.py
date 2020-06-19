@@ -95,35 +95,38 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # start with ligh_on 
-        self.set_light_on()
+        
+        # Robot light must be on to operate
+        SortingRobot.set_light_on(self)
 
-        self.swap_item()
+        while SortingRobot.light_is_on(self) == True: 
+            SortingRobot.swap_item(self)
 
-        # robot can not move with light off 
-        while self.light_is_on():
-            # stop robot from 
-            self.set_light_off()
-            
-            # split list into half from mid to end 
-            while self.can_move_right():
-                self.move_right()
-                if self.compare_item() == 1:
-                    self.set_light_on()
-                else:
-                    self.swap_item()
+            # Are there more numbers in the list to iterate, if so move right
+            while SortingRobot.can_move_right(self) == True:
+                SortingRobot.move_right(self)        
+                
+                # check the value to in front of current position, so that if current item value is greater
+                # then perform a swap 
+                if SortingRobot.compare_item(self) is not None and SortingRobot.compare_item(self) == 1:
+                    SortingRobot.swap_item(self)
 
-            # split list into half from start to mid
-            while self.can_move_left():
-                if self.compare_item() == 1:
-                    self.swap_item()
-                else: 
-                    self.set_light_on()
-                self.move_left()
+            while SortingRobot.can_move_left(self):
+                SortingRobot.move_left(self)
 
-        self.swap_item()
+            while SortingRobot.can_move_right(self) and SortingRobot.compare_item(self) is not None:
+                SortingRobot.move_right(self)
 
+            SortingRobot.swap_item(self)
 
+            # move to next position
+            SortingRobot.move_right(self)
+
+            if SortingRobot.can_move_right(self) == False:
+                break
+
+        # Set light off when sort is complete
+        SortingRobot.set_light_off(self)
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
