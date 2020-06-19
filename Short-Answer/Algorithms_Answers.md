@@ -8,6 +8,7 @@ a)
   while (a < n * n * n):  `O(n) - loops n times`
     a = a + n * n   `0(1) - binding a value`
 ```
+
 ## runtime: O(1+n+1) = O(n) - linear
 
 b)
@@ -23,6 +24,16 @@ b)
 ## runtime: O(1+n*n+1+1+1) = O(n**2) - quadratic
 
 c)
+
+```
+  def bunnyEars(bunnies):
+      if bunnies == 0:    # O(1)
+        return 0    # 0(1)
+
+      return 2 + bunnyEars(bunnies-1)   # 0(n) - recursive calls until bunnies are gone, running linearly
+```
+
+## runtime: O(1+1+n!) = O(n) - linear
 
 ## Exercise II
 
