@@ -75,7 +75,6 @@ class SortingRobot:
             return -1
         else:
             return 0
-
     def set_light_on(self):
         """
         Turn on the robot's light
@@ -96,8 +95,34 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # start with ligh_on 
+        self.set_light_on()
+
+        self.swap_item()
+
+        # robot can not move with light off 
+        while self.light_is_on():
+            # stop robot from 
+            self.set_light_off()
+            
+            # split list into half from mid to end 
+            while self.can_move_right():
+                self.move_right()
+                if self.compare_item() == 1:
+                    self.set_light_on()
+                else:
+                    self.swap_item()
+
+            # split list into half from start to mid
+            while self.can_move_left():
+                if self.compare_item() == 1:
+                    self.swap_item()
+                else: 
+                    self.set_light_on()
+                self.move_left()
+
+        self.swap_item()
+
 
 
 if __name__ == "__main__":
